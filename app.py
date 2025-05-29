@@ -1,41 +1,36 @@
 from flask import Flask , render_template
 from flask import jsonify
+from database import engine #importing the engine connection from the database.py Note that other files can be also treated as modules
+from sqlalchemy import text 
+
+
 app = Flask(__name__)
 
-JOBS = [{
-    'id' :1, 
-    'title': 'Data Analyst',
-    'location': 'Bengaluru, India',
-    'salary': 'Rs. 100,000'
-},
-{
-    'id' :2, 
-    'title': 'FrontEnd Engineer',
-    'location': 'Hyderabad, India',
-    'salary': 'Rs. 80,000'
-},
-{
-    'id' :3, 
-    'title': 'Backend Engineer',
-    'location': 'Delhi, India',
-    'salary': 'Rs. 110,000'
 
-},
-{
-    'id' :4, 
-    'title': 'Data Scientist',
-    'location': 'Mumbai, India',
-    'salary': 'Rs. 120,000'
-},
-]
+
+def load_jobs_from_db():
+    with engine.connect() as conn:
+    
+        result = conn.execute(text("select * from jobs"))
+    
+        jobs = []
+        for row in result.all():
+            jobs.append(dict(row._mapping))
+    return jobs       #this function would return the list of jobs 
+
+
+
+
 
 @app.route("/")
 def function():     
-    return  render_template('home.html', jobs = JOBS)
+    jobs = load_jobs_from_db() #this would call the function to get the list of jobs from the db 
+    return  render_template('home.html', jobs = jobs) #name used in home.html = name used in getting the list 
 
 @app.route("/jobs")
 def list_jobs():
-    return jsonify(JOBS)
+    jobs = load_jobs_from_db()
+    return jsonify(jobs)
 
 
 if __name__ == "__main__":
