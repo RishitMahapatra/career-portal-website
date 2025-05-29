@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{job.title}} - CareerBridge</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
+    <style>
+        .image-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+        }
+        .hero-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 3;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            z-index: 3;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        .content-section {
+            position: relative;
+            background: white;
+            min-height: 100vh;
+            z-index: 10;
+            border-radius: 20px 20px 0 0;
+            margin-top: -20px;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-inner {
+            padding: 4rem 0;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-section-title {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .job-section-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .salary-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        .apply-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    {% include 'job_page_nav.html' %}
+    <!-- Hero Section -->
+    <div class="image-section">
+        <img src="{{ url_for('static', filename='green_abstract.jpg') }}" alt="Uploaded Image" class="hero-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">{{job.title}}</h1>
+            <p class="hero-subtitle">Join our innovative team and shape the future of web development</p>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down fa-2x"></i>
+        </div>
+    </div>
+    <!-- Job Overview Section -->
+    <div class="content-section" id = "job-overview">
+        <div class="container content-inner">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <!-- Job Overview Card -->
+                    <div class="job-card fade-in">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h3 class="job-section-title">
+                                    <i class="fas fa-briefcase icon-primary"></i>
+                                    Position
+                                </h3>
+                                <p class="job-section-content">{{job.title}}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h3 class="job-section-title">
+                                    <i class="fas fa-map-marker-alt icon-primary"></i>
+                                    Location
+                                </h3>
+                                <p class="job-section-content">{{job.location}}</p>
+                            </div>
+                        </div>
+                        <div class="salary-highlight">
+                            <i class="fas fa-rupee-sign me-2"></i>{{job.salary}}
+                        </div>
+                    </div>
+
+                    <!-- Job Responsibilities Card -->
+                    <div class="job-card fade-in">
+                        <h3 class="job-section-title">
+                            <i class="fas fa-tasks icon-primary"></i>
+                            Job Responsibilities
+                        </h3>
+                        <div class="job-section-content">
+                            <ul>
+                                {% for line in job.responsibilities.split('.') %}
+                                    {% if line.strip() %} {# .strip() removes leading/trailing whitespace #}
+                                        <li>{{ line.strip() }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Job Requirements Card -->
+                    <div class="job-card fade-in">
+                        <h3 class="job-section-title">
+                            <i class="fas fa-graduation-cap icon-primary"></i>
+                            Job Requirements
+                        </h3>
+                        <div class="job-section-content">
+                            <ul>
+                                {% for line in job.requirements.split('.') %}
+                                    {% if line.strip() %} {# .strip() removes leading/trailing whitespace #}
+                                        <li>{{ line.strip() }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Apply Button -->
+                    <div class="text-center mt-4 fade-in" id = "apply-now">
+                        <button class="apply-btn btn">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Apply Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling and fade-in effects
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+
+            // Change navbar appearance based on scroll
+            if (scrolled > 100) {
+                navbar.classList.remove('transparent');
+            } else {
+                navbar.classList.add('transparent');
+            }
+
+            // Parallax effect for hero image
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage && scrolled < window.innerHeight) {
+                heroImage.style.transform = `translateY(${rate}px)`;
+            }
+
+            // Fade in elements as they come into view
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                const elementTop = element.offsetTop;
+                const elementBottom = elementTop + element.offsetHeight;
+                const viewportTop = scrolled;
+                const viewportBottom = viewportTop + window.innerHeight;
+
+                if (elementBottom > viewportTop && elementTop < viewportBottom) {
+                    element.classList.add('visible');
+                }
+            });
+        });
+
+        // Smooth scroll for chevron indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            document.querySelector('.content-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize fade-in effect
+        window.addEventListener('load', function() {
+            const event = new Event('scroll');
+            window.dispatchEvent(event);
+        });
+    </script>
+    
+    
+
+
+</body>
+</html>
