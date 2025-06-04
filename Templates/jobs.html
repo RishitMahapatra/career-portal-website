@@ -1,3 +1,23 @@
+<style>
+.apply-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.apply-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    color: white;
+}</style>
 <div class="border-bottom row" style="margin-bottom: 20px ; margin-top: 20px; padding: 10px;"> 
     <div  class="col-10">
         <h4 class="job-title" style="color:rgb(120,120,120) ; margin-bottom: 5px;">{{job['title']}}</h4>
@@ -5,6 +25,6 @@
         <div class="job-salar"><b>Salary:</b>{{job['salary']}}</div>
     </div>
     <div class="col-2">
-        <a  href="/job/{{job['id']}}"  type="button" class="btn btn-outline-primary"  >Apply</a>
+        <a  href="/job/{{job['id']}}"  type="button" class="apply-btn"  >Apply</a>
     </div>
 </div>
